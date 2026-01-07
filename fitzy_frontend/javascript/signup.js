@@ -120,6 +120,7 @@ form.addEventListener("submit", function (e) {
 
   createUser(userData)
     .then(data => {
+      localStorage.setItem("user_id", data.user_id);
       localStorage.setItem("category_id", data.category_id);
       redirectByCategory(data.category_id);
     })
@@ -148,6 +149,8 @@ function redirectByCategory(categoryId) {
   }
 }
 
+
+localStorage.setItem("user_id", data.user_id);
 
 
 
