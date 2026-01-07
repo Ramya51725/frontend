@@ -2,7 +2,7 @@ const API_BASE_URL = 'https://fullstack-backend-eq2r.onrender.com'
 
 const categoryId = 3;
 
-const API_URL = `${API_BASE_URL}/diet/by-category-day`;
+const API_URL = `${API_BASE_URL}/nonveg/diet/by-category-day`;
 const dayContainer = document.getElementById("dayButtons");
 
 let activeBtn = null;
