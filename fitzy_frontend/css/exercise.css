@@ -74,13 +74,16 @@ span{
 }
 
 footer {
+  position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
-  font-size: 20px;
   background-color: #222;
   color: white;
   text-align: center;
   padding: 10px;
+  font-size: 18px;
+  z-index: 1000;
 }
 
 footer p{
