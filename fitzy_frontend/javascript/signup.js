@@ -1,6 +1,5 @@
 const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";
 
-// ================== ELEMENTS ==================
 const form = document.getElementById("signupForm");
 
 const nameInput = document.getElementById("name");
@@ -19,7 +18,6 @@ const mailError = document.getElementById("mail_error");
 const passError = document.getElementById("pass_error");
 const confirmError = document.getElementById("confirm_error");
 
-// ================== HELPERS ==================
 function clearErrors() {
   document.querySelectorAll(".error").forEach(el => el.innerText = "");
 }
@@ -28,7 +26,6 @@ function getSelectedGender() {
   return document.querySelector('input[name="gender"]:checked');
 }
 
-// ================== VALIDATION ==================
 function validateForm() {
   let isValid = true;
 
@@ -84,7 +81,6 @@ function validateForm() {
   return isValid;
 }
 
-// ================== API CALLS ==================
 function checkEmailExists(email) {
   const encodedEmail = encodeURIComponent(email);
   return fetch(`${API_BASE_URL}/users/check-email/${encodedEmail}`)
@@ -105,7 +101,6 @@ function createUser(userData) {
   });
 }
 
-// ================== SUBMIT ==================
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   clearErrors();
@@ -134,10 +129,7 @@ form.addEventListener("submit", function (e) {
     })
     .then(data => {
       if (!data) return;
-
-      // ✅ DO NOT CLEAR localStorage
       localStorage.setItem("category_id", data.category_id);
-
       redirectByCategory(data.category_id);
     })
     .catch(err => {
@@ -146,7 +138,6 @@ form.addEventListener("submit", function (e) {
     });
 });
 
-// ================== REDIRECT ==================
 function redirectByCategory(categoryId) {
   if (categoryId === 1) {
     window.location.href = "../html/home.html";
@@ -158,6 +149,7 @@ function redirectByCategory(categoryId) {
     alert("Category not found");
   }
 }
+
 
 
 // const API_BASE_URL = 'https://fullstack-backend-eq2r.onrender.com'
