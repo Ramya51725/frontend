@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitzy - Sign Up</title>
+    <link rel="stylesheet" href="../css/sign_up.css"/>
+</head>
+<body>
+    <div class="home">
+        <a href="../index.html">
+            <img class="logo" src="../Assets/logo.png" width="50" height="50"/> 
+            Fitzy <span>Lift.Sweat.Repeat</span>
+        </a>
+    </div>
+
+    <div class="bmi_calculation"> 
+        <div>
+            <p>Unlock Your Perfect Plan</p> 
+            <div class="login">
+                <a href="sign_up.html"><div class="sign_up active">Sign Up</div></a>
+                <a href="sign_in.html"><div class="sign_in">Sign In</div></a>
+            </div>
+            <div class="form">
+                <h2>Create Account</h2>
+                <h1>Join Fitzy and start your personalized fitness journey today</h1>
+            </div>
+
+            <form class="get_details" id="signupForm" novalidate>
+                <div class="set1">
+                    <div>
+                        <label for="name">Enter your Name:</label><br/>
+                        <input class="enter" type="text" id="name" required><br/>
+                        <span id="name_error" class="error"></span>
+                    </div>
+                    <div>
+                        <label for="age">Enter your Age:</label><br/>
+                        <input class="enter" type="number" id="age" required><br/>
+                        <span id="age_error" class="error"></span>
+                    </div>
+                </div>
+
+                <div class="set1">
+                    <div>
+                        <label for="height">Enter your Height:</label><br/>
+                        <input class="enter" type="number" id="height" required><br/>
+                        <span id="height_error" class="error"></span>
+                    </div>
+                    <div>
+                        <label for="weight">Enter your Weight:</label><br/>
+                        <input class="enter" type="number" id="weight" required><br/>
+                        <span id="weight_error" class="error"></span>
+                    </div>
+                </div>
+
+                <div class="set1">
+                    <div>
+                        <label for="email">Enter your Email:</label><br/>
+                        <input class="enter" type="email" id="email" required><br/>
+                        <span id="mail_error" class="error"></span>
+                    </div>
+                    <div>
+                        <label for="pass">Enter Your Password:</label><br/>
+                        <input class="enter" type="password" id="pass" required minlength="8"><br/>
+                        <span id="pass_error" class="error"></span>
+                    </div>
+                </div>
+
+                <div class="set1">
+                    <div>
+                        <label for="confirm">Confirm Password:</label><br/>
+                        <input class="enter" type="password" id="confirm" required><br/>
+                        <span id="confirm_error" class="error"></span>
+                    </div>
+                    <div class="gender">
+                        <label>Select Gender:</label><br/>
+                        <input type="radio" name="gender" id="male">
+                        <label for="male">Male</label>
+                        <input type="radio" name="gender" id="female">
+                        <label for="female">Female</label>
+                    </div>
+                </div>
+
+                <div class="end_form">
+                    <button id="but" type="submit">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; Fitzy Lift Sweat Repeat 2025</p>
+    </footer>
+
+    <script src="../javascript/signup.js"></script>
+</body>
+</html>
+
+

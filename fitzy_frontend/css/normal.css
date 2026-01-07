@@ -1,0 +1,249 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Georgia, serif;
+}
+
+body {
+  font-family: Georgia, serif;
+  background: linear-gradient(to top, #fad0c43d 0%, #ffd1ffd5 100%);
+}
+
+.header {
+  height: 80px;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header h2 {
+  font-size: 36px;
+}
+
+.header span {
+  font-size: 20px;
+  color: rgb(129, 59, 129);
+}
+
+.main-container {
+  height: calc(100vh - 140px); 
+  display: grid;
+  grid-template-columns: 90px 1fr 1px 420px;
+  align-items: center;
+  padding: 0 40px;
+  gap: 40px;
+}
+
+
+.nav {
+  border: 1px solid black;
+  border-radius: 12px;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.nav img {
+  width: 36px;
+  cursor: pointer;
+}
+
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 160px);
+  gap: 45px;
+  justify-content: center;
+  align-content: center;
+}
+
+.exercise-card {
+  text-align: center;
+}
+
+
+.exercise-card img {
+  width: 150px;
+  height: 150px;
+  background: white;
+  border-radius: 25px;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.exercise-card p {
+  margin-top: 12px;
+  font-size: 18px;
+}
+
+.divider {
+  height: 80%;
+  background: black;
+  width: 1px;
+}
+
+.exercise-detail {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.exercise-detail h2 {
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+
+.video-box {
+  margin-bottom: 25px;
+}
+
+.video-box video,
+.video-box iframe,
+.video-box img {
+  width: 150px;
+  height: 150px;
+  background: white;
+  border-radius: 25px;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.exercise-detail p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  text-align: left;
+  width: 100%;
+}
+
+.exercise-detail strong {
+  font-size: 18px;
+}
+
+.focus-areas {
+  display: grid;
+  grid-template-columns: repeat(3, auto); 
+  justify-content: center;
+  gap: 25px 30px; 
+  margin-top: 15px;
+}
+
+.focus-pill {
+  border: 1px solid black;
+  padding: 14px 10px;
+  border-radius: 16px;
+  background: white;
+  font-size: 18px;
+  text-align: center;
+}
+
+
+footer {
+  height: 60px;
+  background: #222;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+@media (max-width: 768px) {
+
+
+  .header{
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .main-container {
+    height: auto;
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 25px;
+  }
+
+  .nav {
+    height: auto;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 12px;
+  }
+
+  .nav img {
+    width: 32px;
+  }
+
+
+  .divider {
+    display: none;
+  }
+
+  .exercise-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+  }
+
+  .exercise-card img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .exercise-card p {
+    font-size: 15px;
+  }
+
+
+  .exercise-detail {
+    text-align: center;
+  }
+
+  .exercise-detail h2 {
+    font-size: 22px;
+  }
+
+  .exercise-detail p {
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .video-box video,
+  .video-box iframe,
+  .video-box img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .focus-areas {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .focus-pill {
+    font-size: 15px;
+  
+  }
+
+  .header {
+    padding: 15px 20px;
+  }
+
+  .header h2 {
+    font-size: 26px;
+  }
+
+  .header span {
+    font-size: 16px;
+  }
+
+  footer {
+    font-size: 14px;
+    height: auto;
+    padding: 12px;
+  }
+}
