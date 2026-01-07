@@ -12,6 +12,13 @@ background: linear-gradient(to top, #fad0c43d 0%, #ffd1ff 100%);
   padding-left: 30px;
   font-size: 50px;
   color: black;
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+.decide{
+    margin-top: 10px;
+    font-weight:500;
 }
 span{
   font-size: 25px;

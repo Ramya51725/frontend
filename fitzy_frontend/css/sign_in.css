@@ -87,6 +87,9 @@ background-color:hsla(210, 20%, 98%, 0.622) ;
   justify-content: center;
   padding: 30px;
 }
+input{
+  padding: 20px;
+}
 .btn{
   padding: 8px;
   border-radius: 10px;
