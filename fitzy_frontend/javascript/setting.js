@@ -4,21 +4,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const userId = localStorage.getItem("user_id");
 
-  // 🔒 Strict validation (VERY IMPORTANT)
-  if (!userId || userId === "undefined" || userId === "null") {
-    localStorage.clear();
+  // ✅ Only check existence (DON’T clear yet)
+  if (!userId) {
     alert("Please login first");
     window.location.href = "../../html/sign_in.html";
     return;
   }
 
-  // ✅ Fetch logged-in user ONLY
+  // ✅ Fetch user safely
   fetch(`${API_BASE_URL}/users/${userId}`)
     .then(res => {
-      if (!res.ok) throw new Error("User not found");
+      if (!res.ok) {
+        throw new Error("Unauthorized or user not found");
+      }
       return res.json();
     })
     .then(data => {
+      // ✅ Render user details
       document.getElementById("userName").innerText = data.name;
       document.getElementById("userAge").innerText = data.age;
       document.getElementById("userHeight").innerText = data.height + " cm";
@@ -29,13 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => {
       console.error(err);
-      // 🔥 Clear stale user
-      localStorage.clear();
+
+      // 🔥 NOW clear storage (only if fetch fails)
+      localStorage.removeItem("user_id");
+
       alert("Session expired. Please login again");
       window.location.href = "../../html/sign_in.html";
     });
 
-  // 🗑️ Delete account (same logic)
+  // ================= LOGOUT =================
   const logoutBtn = document.getElementById("logoutBtn");
 
   if (logoutBtn) {
@@ -66,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
 
 
 
