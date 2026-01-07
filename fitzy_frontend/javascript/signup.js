@@ -1,5 +1,6 @@
 const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";
 
+// ================== ELEMENTS ==================
 const form = document.getElementById("signupForm");
 
 const nameInput = document.getElementById("name");
@@ -18,6 +19,7 @@ const mailError = document.getElementById("mail_error");
 const passError = document.getElementById("pass_error");
 const confirmError = document.getElementById("confirm_error");
 
+// ================== HELPERS ==================
 function clearErrors() {
   document.querySelectorAll(".error").forEach(el => el.innerText = "");
 }
@@ -26,6 +28,7 @@ function getSelectedGender() {
   return document.querySelector('input[name="gender"]:checked');
 }
 
+// ================== VALIDATION ==================
 function validateForm() {
   let isValid = true;
 
@@ -33,11 +36,12 @@ function validateForm() {
   const age = ageInput.value;
   const height = heightInput.value;
   const weight = weightInput.value;
+  const email = emailInput.value.trim();
   const password = passInput.value;
   const confirm = confirmInput.value;
   const genderEl = getSelectedGender();
 
-  if (name === "") {
+  if (!name) {
     nameError.innerText = "Name is required";
     isValid = false;
   }
@@ -52,8 +56,13 @@ function validateForm() {
     isValid = false;
   }
 
-  if (!weight || weight <= 0 || weight > 100) {
-    weightError.innerText = "Weight must be below 100 kg";
+  if (!weight || weight <= 0 || weight > 300) {
+    weightError.innerText = "Enter valid weight";
+    isValid = false;
+  }
+
+  if (!email) {
+    mailError.innerText = "Email is required";
     isValid = false;
   }
 
@@ -75,10 +84,14 @@ function validateForm() {
   return isValid;
 }
 
-/* ✅ FIXED EMAIL CHECK */
+// ================== API CALLS ==================
 function checkEmailExists(email) {
-  return fetch(`${API_BASE_URL}/users/check-email/${email}`)
-    .then(res => res.json());
+  const encodedEmail = encodeURIComponent(email);
+  return fetch(`${API_BASE_URL}/users/check-email/${encodedEmail}`)
+    .then(res => {
+      if (!res.ok) throw new Error("Email check failed");
+      return res.json();
+    });
 }
 
 function createUser(userData) {
@@ -86,9 +99,13 @@ function createUser(userData) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData)
-  }).then(res => res.json());
+  }).then(res => {
+    if (!res.ok) throw new Error("Signup failed");
+    return res.json();
+  });
 }
 
+// ================== SUBMIT ==================
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   clearErrors();
@@ -99,9 +116,9 @@ form.addEventListener("submit", function (e) {
 
   const userData = {
     name: nameInput.value.trim(),
-    age: ageInput.value,
-    height: heightInput.value,
-    weight: weightInput.value,
+    age: Number(ageInput.value),
+    height: Number(heightInput.value),
+    weight: Number(weightInput.value),
     email: emailInput.value.trim(),
     password: passInput.value,
     gender: genderEl.id
@@ -118,17 +135,18 @@ form.addEventListener("submit", function (e) {
     .then(data => {
       if (!data) return;
 
-      localStorage.clear();
+      // ✅ DO NOT CLEAR localStorage
       localStorage.setItem("category_id", data.category_id);
 
       redirectByCategory(data.category_id);
     })
     .catch(err => {
       console.error(err);
-      alert("Signup failed. Try again.");
+      alert("Signup failed. Please try again.");
     });
 });
 
+// ================== REDIRECT ==================
 function redirectByCategory(categoryId) {
   if (categoryId === 1) {
     window.location.href = "../html/home.html";
