@@ -134,14 +134,13 @@ a{
     color: black;
 }
 
-footer{
-    bottom: 0;
-    width: 100%;
-    background-color: #222;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    font-size: 18px;
+footer {
+  width: 100%;
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
 }
 
 
