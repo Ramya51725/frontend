@@ -1,5 +1,6 @@
 const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";
 
+// ================== ELEMENTS ==================
 const form = document.getElementById("signupForm");
 
 const nameInput = document.getElementById("name");
@@ -18,6 +19,7 @@ const mailError = document.getElementById("mail_error");
 const passError = document.getElementById("pass_error");
 const confirmError = document.getElementById("confirm_error");
 
+// ================== HELPERS ==================
 function clearErrors() {
   document.querySelectorAll(".error").forEach(el => el.innerText = "");
 }
@@ -26,6 +28,7 @@ function getSelectedGender() {
   return document.querySelector('input[name="gender"]:checked');
 }
 
+// ================== VALIDATION ==================
 function validateForm() {
   let isValid = true;
 
@@ -81,26 +84,22 @@ function validateForm() {
   return isValid;
 }
 
-function checkEmailExists(email) {
-  const encodedEmail = encodeURIComponent(email);
-  return fetch(`${API_BASE_URL}/users/check-email/${encodedEmail}`)
-    .then(res => {
-      if (!res.ok) throw new Error("Email check failed");
-      return res.json();
-    });
-}
-
+// ================== SIGNUP API ==================
 function createUser(userData) {
   return fetch(`${API_BASE_URL}/users/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData)
-  }).then(res => {
-    if (!res.ok) throw new Error("Signup failed");
+  }).then(async res => {
+    if (!res.ok) {
+      const err = await res.json();
+      throw err;
+    }
     return res.json();
   });
 }
 
+// ================== SUBMIT ==================
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   clearErrors();
@@ -119,25 +118,24 @@ form.addEventListener("submit", function (e) {
     gender: genderEl.id
   };
 
-  checkEmailExists(userData.email)
-    .then(result => {
-      if (result.exists === true) {
-        mailError.innerText = "Email already exists";
-        return null;
-      }
-      return createUser(userData);
-    })
+  createUser(userData)
     .then(data => {
-      if (!data) return;
       localStorage.setItem("category_id", data.category_id);
       redirectByCategory(data.category_id);
     })
     .catch(err => {
       console.error(err);
-      alert("Signup failed. Please try again.");
+
+      // backend duplicate email handling
+      if (err.detail && err.detail.includes("email")) {
+        mailError.innerText = "Email already exists";
+      } else {
+        alert("Signup failed. Please try again.");
+      }
     });
 });
 
+// ================== REDIRECT ==================
 function redirectByCategory(categoryId) {
   if (categoryId === 1) {
     window.location.href = "../html/home.html";
@@ -149,6 +147,7 @@ function redirectByCategory(categoryId) {
     alert("Category not found");
   }
 }
+
 
 
 
