@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
 // const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";
 
 // document.addEventListener("DOMContentLoaded", () => {
