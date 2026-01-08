@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(() => {
           localStorage.clear();
           alert("Account deleted successfully");
-          window.location.href = "../../index.html";
+          window.location.href = "../html/sign_up.html";
         })
         .catch(err => {
           console.error("DELETE ERROR:", err);
