@@ -36,35 +36,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   // ================= LOGOUT =================
-  const logoutBtn = document.getElementById("logoutBtn");
+const logoutBtn = document.getElementById("logoutBtn");
 
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      const confirmLogout = confirm(
-        "Your account will be deleted permanently. Continue?"
-      );
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    const confirmLogout = confirm(
+      "Your account will be deleted permanently. Continue?"
+    );
 
-      if (!confirmLogout) return;
+    if (!confirmLogout) return;
 
-      fetch(`${API_BASE_URL}/users/delete/${userId}`, {
-        method: "DELETE"
+    fetch(`${API_BASE_URL}/users/delete/${userId}`, {
+      method: "DELETE"
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Delete failed");
+        }
+        return res.json();
       })
-        .then(res => {
-          if (!res.ok) throw new Error("Delete failed");
-          return res.json();
-        })
-        .then(() => {
-          localStorage.clear();
-          alert("Account deleted successfully");
-          window.location.href = "/html/sign_up.html";
-        })
-        .catch(err => {
-          console.error("DELETE ERROR:", err);
-          alert("Account deletion failed");
-        });
-    });
-  }
-});
+      .then(() => {
+        // ✅ Clear browser data
+        localStorage.clear();
+
+        alert("Account deleted successfully");
+
+        // ✅ Redirect to HOME page (Netlify-safe)
+        window.location.href = "/index.html";
+      })
+      .catch(err => {
+        console.error("DELETE ERROR:", err);
+        alert("Account deletion failed. Please try again.");
+      });
+  });
+}
+})
+
 
 
 
