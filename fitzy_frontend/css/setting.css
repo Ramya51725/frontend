@@ -49,7 +49,7 @@ span{
     margin-left: 360px;
 }
 .setting{
-    margin-left: 40px;
+    margin-left: 100px;
 }
 .box{
     margin-top: 50px;
@@ -128,16 +128,25 @@ span{
     margin-top: 10px;
     border: 1px solid black ;
     border-radius: 10px;
-    width: 600px;
+    width: 200px;
+    text-align: center;
     padding:5px ;
     background-color: rgba(255, 0, 0, 0.476);
+}
+a{
+    text-decoration: none;
+    color: #000;
 }
 .log_out1{
     border: 1px solid black ;
     border-radius: 10px;
-    width: 600px;
+    width: 450px;
     padding:5px ;
     background-color:rgba(0, 128, 0, 0.576);
+}
+.delete{
+    display: flex;
+    gap: 40px;
 }
 .about_fitzy{
     border: 1px solid black;

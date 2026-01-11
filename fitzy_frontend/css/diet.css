@@ -165,18 +165,24 @@ body {
     margin-bottom: 10px;
     flex-wrap: wrap;
     display: flex;
-    align-items: center;
     gap: 10px;
 }
-
+.food_type {
+    display: flex;
+    gap: 20px;
+    border: 1px solid black;
+    padding: 10px 25px;
+    border-radius: 10px;
+    width: fit-content;
+    margin-left: 30px;
+}
   .arranging_diet_flex {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 20px;
   }
-.diet-content{
-  width: 50%;
+.diet_content{
+  width: 100%;
 }
 
 .nav {
@@ -201,15 +207,7 @@ body {
     width: 100%;
     margin: 0;
   }
-  
-  .food_explaination{
-    margin-left: 40px;
-  }
-  .diet_heading{
-    margin-left: 30px;
-  }
 
-  
 .diet_day {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(60px, 3fr));
@@ -223,10 +221,7 @@ body {
     padding: 8px;
   }
 
-  .diet_heading {
-    text-align: center;
-  }
-
+ 
 
   footer {
     font-size: 14px;

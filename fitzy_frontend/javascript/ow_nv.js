@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!dayContainer) return;
 
-  // Create Day buttons
   for (let day = 1; day <= 30; day++) {
     const btn = document.createElement("div");
     btn.className = "diet_box1";
@@ -27,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
       loadDiet(day);
     });
 
-    // Default Day 1 active
     if (day === 1) {
       btn.classList.add("active");
       activeBtn = btn;
@@ -36,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
     dayContainer.appendChild(btn);
   }
 
-  // Load diet
   function loadDiet(day) {
     fetch(`${API_URL}?category_id=${categoryId}&day=${day}`)
       .then(res => {
@@ -66,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("dinner").innerText = msg;
   }
 
-  // Default load
   loadDiet(1);
 
 });
