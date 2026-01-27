@@ -20,16 +20,28 @@
         <a href="sign_in.html"><div class="sign_in">Sign In</div></a>
       </div>
 
-      <form class="get_details" id="signinForm">
+      <form class="get_details" id="signinForm" novalidate>
         <div class="set1">
           <div>
             <label for="mail">Enter your Mail:</label><br />
-            <input class="enter" type="email" id="mail" required />
+            <input
+              class="enter"
+              type="email"
+              id="mail"
+              name="email"
+              required
+            />
           </div>
 
           <div>
             <label for="pass">Enter your Password:</label><br />
-            <input class="enter" type="password" id="pass" required />
+            <input
+              class="enter"
+              type="password"
+              id="pass"
+              name="password"
+              required
+            />
           </div>
         </div>
 
@@ -37,12 +49,12 @@
           <button type="submit" class="btn">Continue</button>
         </div>
 
-        <p id="message"></p>
+        <p id="message" class="error"></p>
       </form>
     </div>
 
     <footer>
-      <p>&copy; fitzy Lift Sweat Repeat 2025</p>
+      <p>&copy; Fitzy Lift Sweat Repeat 2025</p>
     </footer>
 
     <script src="../javascript/signin.js"></script>

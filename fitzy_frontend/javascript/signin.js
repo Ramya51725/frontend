@@ -11,9 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     messageEl.innerText = "";
 
-    const email = document.getElementById("mail").value.trim();
-    const password = document.getElementById("pass").value;
+    // ---- Use FormData ----
+    const formData = new FormData(form);
 
+    const email = formData.get("email")?.trim().toLowerCase();
+    const password = formData.get("password");
+
+    // ---- Basic validation ----
     if (!email || !password) {
       messageEl.innerText = "Email and password are required";
       return;
@@ -22,37 +26,28 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const res = await fetch(`${API_BASE_URL}/users/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
       });
 
+      const data = await res.json();
       if (!res.ok) {
-        let errorMsg = "Invalid email or password";
-        try {
-          const errData = await res.json();
-          if (errData.detail) errorMsg = errData.detail;
-        } catch {}
-        throw new Error(errorMsg);
+        throw new Error(data.detail || "Invalid email or password");
       }
 
-      const data = await res.json();
-
-
-      if (!data || !data.user_id || !data.category_id) {
+      // ---- Validate response ----
+      if (!data.user_id || !data.category_id) {
         throw new Error("Invalid login response from server");
       }
 
-
-      localStorage.clear(); 
-
-
+      // ---- Save session ----
+      localStorage.clear();
       localStorage.setItem("user_id", data.user_id);
       localStorage.setItem("category_id", data.category_id);
       localStorage.setItem("name", data.name || "");
       localStorage.setItem("level", "level1");
 
+      // ---- Redirect ----
       redirectByCategory(Number(data.category_id));
 
     } catch (err) {
@@ -74,5 +69,6 @@ function redirectByCategory(categoryId) {
     alert("Category not found");
   }
 }
+
 
 
