@@ -27,15 +27,16 @@
             </div>
 
             <form class="get_details" id="signupForm" novalidate>
+
                 <div class="set1">
                     <div>
                         <label for="name">Enter your Name:</label><br/>
-                        <input class="enter" type="text" id="name" required><br/>
+                        <input class="enter" type="text" id="name" name="name" required><br/>
                         <span id="name_error" class="error"></span>
                     </div>
                     <div>
                         <label for="age">Enter your Age:</label><br/>
-                        <input class="enter" type="number" id="age" required><br/>
+                        <input class="enter" type="number" id="age" name="age" required><br/>
                         <span id="age_error" class="error"></span>
                     </div>
                 </div>
@@ -43,12 +44,12 @@
                 <div class="set1">
                     <div>
                         <label for="height">Enter your Height:</label><br/>
-                        <input class="enter" type="number" id="height" required><br/>
+                        <input class="enter" type="number" id="height" name="height" required><br/>
                         <span id="height_error" class="error"></span>
                     </div>
                     <div>
                         <label for="weight">Enter your Weight:</label><br/>
-                        <input class="enter" type="number" id="weight" required><br/>
+                        <input class="enter" type="number" id="weight" name="weight" required><br/>
                         <span id="weight_error" class="error"></span>
                     </div>
                 </div>
@@ -56,12 +57,12 @@
                 <div class="set1">
                     <div>
                         <label for="email">Enter your Email:</label><br/>
-                        <input class="enter" type="email" id="email" required><br/>
+                        <input class="enter" type="email" id="email" name="email" required><br/>
                         <span id="mail_error" class="error"></span>
                     </div>
                     <div>
                         <label for="pass">Enter Your Password:</label><br/>
-                        <input class="enter" type="password" id="pass" required minlength="8"><br/>
+                        <input class="enter" type="password" id="pass" name="password" required minlength="8"><br/>
                         <span id="pass_error" class="error"></span>
                     </div>
                 </div>
@@ -69,14 +70,15 @@
                 <div class="set1">
                     <div>
                         <label for="confirm">Confirm Password:</label><br/>
-                        <input class="enter" type="password" id="confirm" required><br/>
+                        <input class="enter" type="password" id="confirm" name="confirm" required><br/>
                         <span id="confirm_error" class="error"></span>
                     </div>
                     <div class="gender">
                         <label>Select Gender:</label><br/>
-                        <input type="radio" name="gender" id="male">
+                        <input type="radio" name="gender" id="male" value="male">
                         <label for="male">Male</label>
-                        <input type="radio" name="gender" id="female">
+
+                        <input type="radio" name="gender" id="female" value="female">
                         <label for="female">Female</label>
                     </div>
                 </div>
@@ -84,6 +86,7 @@
                 <div class="end_form">
                     <button id="but" type="submit">Continue</button>
                 </div>
+
             </form>
         </div>
     </div>

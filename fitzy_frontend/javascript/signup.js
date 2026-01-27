@@ -2,132 +2,95 @@ const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";
 
 const form = document.getElementById("signupForm");
 
-const nameInput = document.getElementById("name");
-const ageInput = document.getElementById("age");
-const heightInput = document.getElementById("height");
-const weightInput = document.getElementById("weight");
-const emailInput = document.getElementById("email");
-const passInput = document.getElementById("pass");
-const confirmInput = document.getElementById("confirm");
-
-const nameError = document.getElementById("name_error");
-const ageError = document.getElementById("age_error");
-const heightError = document.getElementById("height_error");
-const weightError = document.getElementById("weight_error");
-const mailError = document.getElementById("mail_error");
-const passError = document.getElementById("pass_error");
-const confirmError = document.getElementById("confirm_error");
-
 function clearErrors() {
   document.querySelectorAll(".error").forEach(el => el.innerText = "");
 }
 
-function getSelectedGender() {
-  return document.querySelector('input[name="gender"]:checked');
-}
+form.addEventListener("submit", async function (e) {
+  e.preventDefault();
+  clearErrors();
 
-function validateForm() {
+  const formData = new FormData(form);
+
+  const userData = {
+    name: formData.get("name")?.trim(),
+    age: Number(formData.get("age")),
+    height: Number(formData.get("height")),
+    weight: Number(formData.get("weight")),
+    email: formData.get("email")?.trim().toLowerCase(),
+    password: formData.get("password"),
+    gender: formData.get("gender")
+  };
+
+  // ---------- BASIC VALIDATION ----------
   let isValid = true;
 
-  const name = nameInput.value.trim();
-  const age = ageInput.value;
-  const height = heightInput.value;
-  const weight = weightInput.value;
-  const email = emailInput.value.trim();
-  const password = passInput.value;
-  const confirm = confirmInput.value;
-  const genderEl = getSelectedGender();
-
-  if (!name) {
-    nameError.innerText = "Name is required";
+  if (!userData.name) {
+    document.getElementById("name_error").innerText = "Name is required";
     isValid = false;
   }
 
-  if (!age || age <= 0) {
-    ageError.innerText = "Enter valid age";
+  if (!userData.age || userData.age <= 0) {
+    document.getElementById("age_error").innerText = "Enter valid age";
     isValid = false;
   }
 
-  if (!height || height <= 0) {
-    heightError.innerText = "Enter valid height";
+  if (!userData.height || userData.height <= 0) {
+    document.getElementById("height_error").innerText = "Enter valid height";
     isValid = false;
   }
 
-  if (!weight || weight <= 0 || weight > 300) {
-    weightError.innerText = "Enter valid weight";
+  if (!userData.weight || userData.weight <= 0 || userData.weight > 300) {
+    document.getElementById("weight_error").innerText = "Enter valid weight";
     isValid = false;
   }
 
-  if (!email) {
-    mailError.innerText = "Email is required";
+  if (!userData.email) {
+    document.getElementById("mail_error").innerText = "Email is required";
     isValid = false;
   }
 
-  if (password.length < 8) {
-    passError.innerText = "Password must be at least 8 characters";
+  if (!userData.password || userData.password.length < 8) {
+    document.getElementById("pass_error").innerText = "Password must be at least 8 characters";
     isValid = false;
   }
 
-  if (password !== confirm) {
-    confirmError.innerText = "Passwords do not match";
+  if (!formData.get("confirm") || formData.get("confirm") !== userData.password) {
+    document.getElementById("confirm_error").innerText = "Passwords do not match";
     isValid = false;
   }
 
-  if (!genderEl) {
+  if (!userData.gender) {
     alert("Please select gender");
     isValid = false;
   }
 
-  return isValid;
-}
+  if (!isValid) return;
 
-function createUser(userData) {
-  return fetch(`${API_BASE_URL}/users/`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(userData)
-  }).then(async res => {
-    if (!res.ok) {
-      const err = await res.json();
-      throw err;
-    }
-    return res.json();
-  });
-}
-
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-  clearErrors();
-
-  if (!validateForm()) return;
-
-  const genderEl = getSelectedGender();
-
-  const userData = {
-    name: nameInput.value.trim(),
-    age: Number(ageInput.value),
-    height: Number(heightInput.value),
-    weight: Number(weightInput.value),
-    email: emailInput.value.trim(),
-    password: passInput.value,
-    gender: genderEl.id
-  };
-
-  createUser(userData)
-    .then(data => {
-      localStorage.setItem("user_id", data.user_id);
-      localStorage.setItem("category_id", data.category_id);
-      redirectByCategory(data.category_id);
-    })
-    .catch(err => {
-      console.error(err);
-
-      if (err.detail && err.detail.includes("email")) {
-        mailError.innerText = "Email already exists";
-      } else {
-        alert("Signup failed. Please try again.");
-      }
+  // ---------- API CALL ----------
+  try {
+    const res = await fetch(`${API_BASE_URL}/users/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userData)
     });
+
+    const data = await res.json();
+    if (!res.ok) throw data;
+
+    localStorage.setItem("user_id", data.user_id);
+    localStorage.setItem("category_id", data.category_id);
+
+    redirectByCategory(data.category_id);
+
+  } catch (err) {
+    console.error(err);
+    if (err.detail && err.detail.includes("Email")) {
+      document.getElementById("mail_error").innerText = "Email already exists";
+    } else {
+      alert("Signup failed. Please try again.");
+    }
+  }
 });
 
 function redirectByCategory(categoryId) {
@@ -141,9 +104,4 @@ function redirectByCategory(categoryId) {
     alert("Category not found");
   }
 }
-
-
-localStorage.setItem("user_id", data.user_id);
-
-
 
