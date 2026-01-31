@@ -92,15 +92,15 @@ border: 1px solid  rgb(75, 8, 75);
 }
 
 .diet_box1.completed {
-  background-color: #296d2a;
-  border: 1px solid rgb(7, 53, 7);
+  background-color: #205521;
+  border: 2px solid rgb(7, 53, 7);
   color: white;
   border: none;
 }
 
 .diet_box1.disabled {
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.2;
   background-color: #ddd;
 }
 
