@@ -51,8 +51,7 @@ form.addEventListener("submit", async function (e) {
   }
 
   if (!userData.password || userData.password.length < 8) {
-    document.getElementById("pass_error").innerText =
-      "Password must be at least 8 characters";
+    document.getElementById("pass_error").innerText = "Password must be at least 8 characters";
     isValid = false;
   }
 
@@ -79,22 +78,20 @@ form.addEventListener("submit", async function (e) {
     const data = await res.json();
     if (!res.ok) throw data;
 
-    // ---------- SAVE SESSION ----------
-    localStorage.clear();
     localStorage.setItem("user_id", data.user_id);
     localStorage.setItem("category_id", data.category_id);
-    localStorage.setItem("name", userData.name);
-    localStorage.setItem("level", "beginner");
 
-    // ---------- REDIRECT ----------
-    window.location.href = "../html/landing/beginner.html";
+     window.location.href = "/html/landing/beginner.html";
 
   } catch (err) {
     console.error(err);
-    if (err.detail && err.detail.toLowerCase().includes("email")) {
+    if (err.detail && err.detail.includes("Email")) {
       document.getElementById("mail_error").innerText = "Email already exists";
     } else {
       alert("Signup failed. Please try again.");
     }
   }
 });
+
+
+
