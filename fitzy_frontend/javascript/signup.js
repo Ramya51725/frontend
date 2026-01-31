@@ -79,15 +79,15 @@ form.addEventListener("submit", async function (e) {
     const data = await res.json();
     if (!res.ok) throw data;
 
-    // ---- Store session ----
+    // ---------- SAVE SESSION ----------
     localStorage.clear();
     localStorage.setItem("user_id", data.user_id);
     localStorage.setItem("category_id", data.category_id);
     localStorage.setItem("name", userData.name);
     localStorage.setItem("level", "beginner");
 
-    // ---- Direct redirect to beginner landing ----
-    window.location.href = "../html/beginner/landing.html";
+    // ---------- REDIRECT ----------
+    window.location.href = "/html/landing/beginner.html";
 
   } catch (err) {
     console.error(err);
