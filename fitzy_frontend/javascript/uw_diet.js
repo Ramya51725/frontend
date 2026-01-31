@@ -1,8 +1,14 @@
 const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";
 
 const categoryId = 2;
+
+// ✅ SAFELY GET USER ID
 const rawUserId = localStorage.getItem("user_id");
 const userId = rawUserId ? Number(rawUserId) : null;
+
+if (!userId) {
+  console.error("User not logged in");
+}
 
 const API_URL = `${API_BASE_URL}/veg/diet/by-category-day`;
 const PROGRESS_API = `${API_BASE_URL}/progress`;
@@ -61,46 +67,57 @@ function setText(msg) {
   document.getElementById("dinner").innerText = msg;
 }
 
-// ---------- MARK COMPLETED ----------
+// ---------- MARK DAY COMPLETED ----------
 completedBtn.addEventListener("click", async () => {
   if (!userId) {
-    alert("Please login first");
+    alert("Please login again");
     return;
   }
 
-  const res = await fetch(`${PROGRESS_API}/complete`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      user_id: userId,
-      day: selectedDay
-    })
-  });
+  try {
+    const res = await fetch(`${PROGRESS_API}/complete`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: userId,
+        day: selectedDay
+      })
+    });
 
-  if (!res.ok) {
-    alert("Failed to mark completed");
-    return;
+    if (!res.ok) {
+      throw new Error("Failed to mark completed");
+    }
+
+    // ✅ TURN DAY GREEN AFTER SUCCESS
+    markGreen(selectedDay);
+
+  } catch (err) {
+    console.error(err);
+    alert("Could not save progress");
   }
-
-  markGreen(selectedDay);
 });
 
 // ---------- LOAD USER PROGRESS ----------
 async function loadProgress() {
   if (!userId) return;
 
-  const res = await fetch(`${PROGRESS_API}/${userId}`);
-  if (!res.ok) return;
+  try {
+    const res = await fetch(`${PROGRESS_API}/${userId}`);
+    if (!res.ok) return;
 
-  const data = await res.json();
-  data.forEach(p => {
-    if (p.status === "completed") {
-      markGreen(p.day);
-    }
-  });
+    const data = await res.json();
+
+    data.forEach(p => {
+      if (p.status === "completed") {
+        markGreen(p.day);
+      }
+    });
+  } catch (err) {
+    console.error("Error loading progress", err);
+  }
 }
 
-// ---------- GREEN UI ----------
+// ---------- TURN DAY GREEN ----------
 function markGreen(day) {
   const btn = dayButtons[day - 1];
   if (btn) btn.classList.add("completed");
@@ -109,6 +126,7 @@ function markGreen(day) {
 // ---------- INITIAL LOAD ----------
 loadDiet(1);
 loadProgress();
+
 
 
 // const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";

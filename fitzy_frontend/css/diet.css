@@ -91,6 +91,13 @@ border: 1px solid  rgb(75, 8, 75);
     margin-bottom: 20px;
 }
 
+.diet_box1.completed {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+}
+    
+
 .food_type{
     display: flex;
     gap: 20px;
