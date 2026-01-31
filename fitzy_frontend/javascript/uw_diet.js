@@ -1,8 +1,7 @@
 const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";
-
 const categoryId = 2;
 
-// ✅ SAFELY GET USER ID
+// ✅ GET USER ID
 const rawUserId = localStorage.getItem("user_id");
 const userId = rawUserId ? Number(rawUserId) : null;
 
@@ -20,13 +19,15 @@ let activeBtn = null;
 let selectedDay = 1;
 const dayButtons = [];
 
-// ---------- CREATE DAY BUTTONS ----------
+// ---------- CREATE DAY BUTTONS (ALL DISABLED) ----------
 for (let day = 1; day <= 30; day++) {
   const btn = document.createElement("div");
-  btn.className = "diet_box1";
+  btn.className = "diet_box1 disabled";
   btn.innerText = `Day ${day}`;
 
   btn.onclick = () => {
+    if (btn.classList.contains("disabled")) return;
+
     if (activeBtn) activeBtn.classList.remove("active");
     btn.classList.add("active");
     activeBtn = btn;
@@ -34,14 +35,15 @@ for (let day = 1; day <= 30; day++) {
     loadDiet(day);
   };
 
-  if (day === 1) {
-    btn.classList.add("active");
-    activeBtn = btn;
-  }
-
   dayButtons.push(btn);
   dayContainer.appendChild(btn);
 }
+
+// ✅ ENABLE DAY 1 BY DEFAULT
+dayButtons[0].classList.remove("disabled");
+dayButtons[0].classList.add("active");
+activeBtn = dayButtons[0];
+selectedDay = 1;
 
 // ---------- LOAD DIET ----------
 function loadDiet(day) {
@@ -84,11 +86,8 @@ completedBtn.addEventListener("click", async () => {
       })
     });
 
-    if (!res.ok) {
-      throw new Error("Failed to mark completed");
-    }
+    if (!res.ok) throw new Error("Failed");
 
-    // ✅ TURN DAY GREEN AFTER SUCCESS
     markGreen(selectedDay);
 
   } catch (err) {
@@ -107,25 +106,41 @@ async function loadProgress() {
 
     const data = await res.json();
 
+    let maxCompletedDay = 0;
+
     data.forEach(p => {
       if (p.status === "completed") {
         markGreen(p.day);
+        maxCompletedDay = Math.max(maxCompletedDay, p.day);
       }
     });
+
+    // 🔓 ENABLE NEXT DAY
+    const nextBtn = dayButtons[maxCompletedDay];
+    if (nextBtn) nextBtn.classList.remove("disabled");
+
   } catch (err) {
     console.error("Error loading progress", err);
   }
 }
 
-// ---------- TURN DAY GREEN ----------
+// ---------- MARK GREEN & UNLOCK NEXT ----------
 function markGreen(day) {
   const btn = dayButtons[day - 1];
-  if (btn) btn.classList.add("completed");
+  if (!btn) return;
+
+  btn.classList.add("completed");
+  btn.classList.remove("disabled");
+
+  // 🔓 Unlock next day
+  const nextBtn = dayButtons[day];
+  if (nextBtn) nextBtn.classList.remove("disabled");
 }
 
 // ---------- INITIAL LOAD ----------
 loadDiet(1);
 loadProgress();
+
 
 
 

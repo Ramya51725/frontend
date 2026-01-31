@@ -98,6 +98,18 @@ border: 1px solid  rgb(75, 8, 75);
   border: none;
 }
 
+.diet_box1.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+  background-color: #ddd;
+}
+
+.diet_box1.completed {
+  background-color: #4caf50;
+  color: white;
+}
+
+
 
 .food_type{
     display: flex;
