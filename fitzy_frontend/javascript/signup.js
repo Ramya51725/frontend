@@ -87,7 +87,7 @@ form.addEventListener("submit", async function (e) {
     localStorage.setItem("level", "beginner");
 
     // ---------- REDIRECT ----------
-    window.location.href = "/html/landing/beginner.html";
+    window.location.href = "../html/landing/beginner.html";
 
   } catch (err) {
     console.error(err);
