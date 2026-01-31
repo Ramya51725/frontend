@@ -93,7 +93,7 @@ border: 1px solid  rgb(75, 8, 75);
 
 .diet_box1.completed {
   background-color: #296d2a;
-  border: 1px solid green;
+  border: 1px solid rgb(7, 53, 7);
   color: white;
   border: none;
 }
