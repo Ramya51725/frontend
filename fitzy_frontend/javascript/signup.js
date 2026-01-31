@@ -51,7 +51,8 @@ form.addEventListener("submit", async function (e) {
   }
 
   if (!userData.password || userData.password.length < 8) {
-    document.getElementById("pass_error").innerText = "Password must be at least 8 characters";
+    document.getElementById("pass_error").innerText =
+      "Password must be at least 8 characters";
     isValid = false;
   }
 
@@ -78,30 +79,22 @@ form.addEventListener("submit", async function (e) {
     const data = await res.json();
     if (!res.ok) throw data;
 
+    // ---- Store session ----
+    localStorage.clear();
     localStorage.setItem("user_id", data.user_id);
     localStorage.setItem("category_id", data.category_id);
+    localStorage.setItem("name", userData.name);
+    localStorage.setItem("level", "beginner");
 
-    redirectByCategory(data.category_id);
+    // ---- Direct redirect to beginner landing ----
+    window.location.href = "../html/beginner/landing.html";
 
   } catch (err) {
     console.error(err);
-    if (err.detail && err.detail.includes("Email")) {
+    if (err.detail && err.detail.toLowerCase().includes("email")) {
       document.getElementById("mail_error").innerText = "Email already exists";
     } else {
       alert("Signup failed. Please try again.");
     }
   }
 });
-
-function redirectByCategory(categoryId) {
-  if (categoryId === 1) {
-    window.location.href = "../html/home.html";
-  } else if (categoryId === 2) {
-    window.location.href = "../html/normal/normal_home.html";
-  } else if (categoryId === 3) {
-    window.location.href = "../html/overweight/overweight.html";
-  } else {
-    alert("Category not found");
-  }
-}
-
