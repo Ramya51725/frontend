@@ -92,11 +92,12 @@ border: 1px solid  rgb(75, 8, 75);
 }
 
 .diet_box1.completed {
-  background-color: #4caf50;
+  background-color: #296d2a;
+  border: 1px solid green;
   color: white;
   border: none;
 }
-    
+
 
 .food_type{
     display: flex;
