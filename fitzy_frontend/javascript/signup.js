@@ -81,7 +81,7 @@ form.addEventListener("submit", async function (e) {
     localStorage.setItem("user_id", data.user_id);
     localStorage.setItem("category_id", data.category_id);
 
-     window.location.href = "/html/landing/beginner.html";
+     window.location.href = "../html/landing/beginner.html";
 
   } catch (err) {
     console.error(err);

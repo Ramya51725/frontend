@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("level", "level1");
 
       // ---- Redirect ----
-     window.location.href = "/html/landing/beginner.html";
+     window.location.href = "../html/landing/beginner.html";
 
     } catch (err) {
       console.error("Login error:", err);
