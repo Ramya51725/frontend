@@ -1,5 +1,6 @@
-const categoryId = Number(localStorage.getItem("category_id"));
-const categorySpan = document.getElementById("categoryName");
+document.addEventListener("DOMContentLoaded", () => {
+  const categoryId = Number(localStorage.getItem("category_id"));
+  const categorySpan = document.getElementById("categoryName");
 
   if (!categorySpan) return;
 
@@ -12,3 +13,4 @@ const categorySpan = document.getElementById("categoryName");
   } else {
     categorySpan.innerText = "Unknown";
   }
+});
