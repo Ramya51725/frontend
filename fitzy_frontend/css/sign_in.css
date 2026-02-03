@@ -10,12 +10,13 @@
   font-size: 50px;
   color:black;
 }
+
 span{
   font-size: 25px;
   color:rgb(129, 59, 129) ;
 }
 body {
- background-image: url('../Assets/backround_image.webp'); 
+ background-image: url('../Assets/backround_image.jpg'); 
  background-size: cover; 
  z-index: -1;
 }

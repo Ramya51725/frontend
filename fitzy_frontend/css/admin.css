@@ -1,0 +1,170 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Georgia, serif;
+}
+
+body{
+    background: linear-gradient(to top, #fad0c43d 0%, #ffd1ff 100%);
+}
+
+/* ================= HEADER ================= */
+.header{
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+}
+
+.header-left{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand{
+    display: flex;
+    gap: 10px;
+}
+
+.brand span{
+    font-size: 24px;
+    color: rgb(129, 59, 129);
+}
+
+.header-right{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+#logoutBtn{
+    padding: 8px 18px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(129, 59, 129);
+    color: white;
+    cursor: pointer;
+}
+
+/* ================= PAGE TITLE ================= */
+.page-title{
+    text-align: center;
+    margin: 15px 0 10px;
+    font-size: 28px;
+    color: rgb(129, 59, 129);
+}
+
+/* ================= MAIN ================= */
+.admin-main{
+    height: calc(100vh - 140px);
+    display: flex;
+    gap: 90px;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 80px;
+}
+
+/* ================= ADMIN ACTIONS ================= */
+.admin-box{
+    width: 300px;
+    height: 250px;
+    border-radius: 30px;
+    border: 2px solid black;
+    background: linear-gradient(to top, #fad0c43d 0%, #ffd1ff 100%);
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.35);
+}
+
+.admin-box h3{
+    color: rgb(129, 59, 129);
+}
+
+.admin-btn{
+    width: 230px;
+    padding: 14px;
+    border-radius: 14px;
+    border: 2px solid black;
+    background-color: rgba(255, 0, 0, 0.18);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.admin-btn.active,
+.admin-btn:hover{
+    background-color: rgb(129, 59, 129);
+    color: white;
+}
+
+/* ================= FORM ================= */
+.form-container{
+    width: 760px;
+    padding: 28px 36px;
+    border-radius: 35px;
+    border: 2px solid black;
+    background: linear-gradient(to top, #fad0c43d 0%, #ffd1ff 100%);
+    box-shadow: 0 0 25px rgba(0,0,0,0.35);
+}
+
+.form-container h2{
+    text-align: center;
+    margin-bottom: 16px;
+    color: rgb(129, 59, 129);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label{
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input, select, textarea{
+    width: 100%;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1.5px solid black;
+}
+
+textarea{
+    resize: none;
+    height: 65px;
+}
+
+.form-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.submit-btn{
+    margin-top: 12px;
+    padding: 14px;
+    border-radius: 16px;
+    border: none;
+    background-color: rgb(129, 59, 129);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* ================= FOOTER ================= */
+footer{
+    height: 40px;
+    background-color: #222;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

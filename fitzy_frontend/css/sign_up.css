@@ -10,6 +10,7 @@
 }
 
 
+
 .home{
   padding-top: 30px;
   padding-left: 30px;
@@ -24,7 +25,7 @@ span{
   color: rgb(129, 59, 129);
 }
 body {
- background-image: url('../Assets/backround_image.webp'); 
+ background-image: url('../Assets/backround_image.jpg'); 
  background-size: cover; 
  z-index: -1;
 }
