@@ -18,11 +18,9 @@ form.addEventListener("submit", async (e) => {
   let url = "";
 
   if (dietType === "veg") {
-    // ✅ CORRECT veg endpoint
     url = `${API_BASE_URL}/veg/diet`;
   } 
   else if (dietType === "nonveg") {
-    // ✅ CORRECT non-veg endpoint
     url = `${API_BASE_URL}/nonveg/nonveg`;
   } 
   else {

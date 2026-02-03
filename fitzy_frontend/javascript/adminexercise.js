@@ -3,7 +3,7 @@ const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";
 const form = document.getElementById("exerciseForm");
 
 form.addEventListener("submit", async (e) => {
-  e.preventDefault(); // 🚫 stop page refresh
+  e.preventDefault(); 
 
   const formData = new FormData();
 
