@@ -1,14 +1,15 @@
+import API_BASE_URL from "./config.js";
+
 document.addEventListener("DOMContentLoaded", () => {
 
-  const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";
-
+  const token = localStorage.getItem("token");
   const categoryId = Number(localStorage.getItem("category_id"));
-  const rawUserId = localStorage.getItem("user_id");
-  const userId = rawUserId ? Number(rawUserId) : null;
+  const userId = Number(localStorage.getItem("user_id"));
 
-  if (!userId || !categoryId) {
+  // 🔐 AUTH GUARD
+  if (!token || !userId || !categoryId) {
     alert("Session expired. Please login again.");
-    window.location.href = "/html/sign_in.html";
+    window.location.href = "../html/sign_in.html";
     return;
   }
 
@@ -18,16 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const dayContainer = document.getElementById("dayButtons");
   const completedBtn = document.querySelector(".Completed-btn");
 
-  if (!dayContainer || !completedBtn) {
-    console.error("Required DOM elements not found");
-    return;
-  }
-
   let activeBtn = null;
   let selectedDay = 1;
   const dayButtons = [];
 
-  // CREATE DAY BUTTONS
+  /* ---------- CREATE DAY BUTTONS ---------- */
   for (let day = 1; day <= 30; day++) {
     const btn = document.createElement("div");
     btn.className = "diet_box1 disabled";
@@ -47,13 +43,18 @@ document.addEventListener("DOMContentLoaded", () => {
     dayContainer.appendChild(btn);
   }
 
-  // ENABLE DAY 1
+  // ✅ ENABLE DAY 1
   dayButtons[0].classList.remove("disabled");
   dayButtons[0].classList.add("active");
   activeBtn = dayButtons[0];
 
+  /* ---------- LOAD DIET ---------- */
   function loadDiet(day) {
-    fetch(`${API_URL}?category_id=${categoryId}&day=${day}`)
+    fetch(`${API_URL}?category_id=${categoryId}&day=${day}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(res => res.json())
       .then(data => {
         if (!data || data.length === 0) {
@@ -75,12 +76,19 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("dinner").innerText = msg;
   }
 
+  /* ---------- MARK COMPLETED ---------- */
   completedBtn.addEventListener("click", async () => {
     try {
       const res = await fetch(`${PROGRESS_API}/complete`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: userId, day: selectedDay })
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          day: selectedDay
+        })
       });
 
       if (!res.ok) throw new Error();
@@ -91,9 +99,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  /* ---------- LOAD USER PROGRESS ---------- */
   async function loadProgress() {
     try {
-      const res = await fetch(`${PROGRESS_API}/${userId}`);
+      const res = await fetch(`${PROGRESS_API}/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
       if (!res.ok) return;
 
       const data = await res.json();
@@ -125,6 +139,142 @@ document.addEventListener("DOMContentLoaded", () => {
     if (nextBtn) nextBtn.classList.remove("disabled");
   }
 
+  /* ---------- INITIAL LOAD ---------- */
   loadDiet(1);
   loadProgress();
+
 });
+
+
+
+
+// document.addEventListener("DOMContentLoaded", () => {
+
+//   const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";
+
+//   const categoryId = Number(localStorage.getItem("category_id"));
+//   const rawUserId = localStorage.getItem("user_id");
+//   const userId = rawUserId ? Number(rawUserId) : null;
+
+//   if (!userId || !categoryId) {
+//     alert("Session expired. Please login again.");
+//     window.location.href = "/html/sign_in.html";
+//     return;
+//   }
+
+//   const API_URL = `${API_BASE_URL}/veg/diet/by-category-day`;
+//   const PROGRESS_API = `${API_BASE_URL}/progress`;
+
+//   const dayContainer = document.getElementById("dayButtons");
+//   const completedBtn = document.querySelector(".Completed-btn");
+
+//   if (!dayContainer || !completedBtn) {
+//     console.error("Required DOM elements not found");
+//     return;
+//   }
+
+//   let activeBtn = null;
+//   let selectedDay = 1;
+//   const dayButtons = [];
+
+//   // CREATE DAY BUTTONS
+//   for (let day = 1; day <= 30; day++) {
+//     const btn = document.createElement("div");
+//     btn.className = "diet_box1 disabled";
+//     btn.innerText = `Day ${day}`;
+
+//     btn.onclick = () => {
+//       if (btn.classList.contains("disabled")) return;
+//       if (activeBtn) activeBtn.classList.remove("active");
+
+//       btn.classList.add("active");
+//       activeBtn = btn;
+//       selectedDay = day;
+//       loadDiet(day);
+//     };
+
+//     dayButtons.push(btn);
+//     dayContainer.appendChild(btn);
+//   }
+
+//   // ENABLE DAY 1
+//   dayButtons[0].classList.remove("disabled");
+//   dayButtons[0].classList.add("active");
+//   activeBtn = dayButtons[0];
+
+//   function loadDiet(day) {
+//     fetch(`${API_URL}?category_id=${categoryId}&day=${day}`)
+//       .then(res => res.json())
+//       .then(data => {
+//         if (!data || data.length === 0) {
+//           setText("No diet available");
+//           return;
+//         }
+
+//         const diet = data[0];
+//         document.getElementById("breakfast").innerText = diet.breakfast;
+//         document.getElementById("lunch").innerText = diet.lunch;
+//         document.getElementById("dinner").innerText = diet.dinner;
+//       })
+//       .catch(() => alert("Error loading diet"));
+//   }
+
+//   function setText(msg) {
+//     document.getElementById("breakfast").innerText = msg;
+//     document.getElementById("lunch").innerText = msg;
+//     document.getElementById("dinner").innerText = msg;
+//   }
+
+//   completedBtn.addEventListener("click", async () => {
+//     try {
+//       const res = await fetch(`${PROGRESS_API}/complete`, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ user_id: userId, day: selectedDay })
+//       });
+
+//       if (!res.ok) throw new Error();
+//       markGreen(selectedDay);
+
+//     } catch {
+//       alert("Could not save progress");
+//     }
+//   });
+
+//   async function loadProgress() {
+//     try {
+//       const res = await fetch(`${PROGRESS_API}/${userId}`);
+//       if (!res.ok) return;
+
+//       const data = await res.json();
+//       let maxCompletedDay = 0;
+
+//       data.forEach(p => {
+//         if (p.status === "completed") {
+//           markGreen(p.day);
+//           maxCompletedDay = Math.max(maxCompletedDay, p.day);
+//         }
+//       });
+
+//       const nextBtn = dayButtons[maxCompletedDay];
+//       if (nextBtn) nextBtn.classList.remove("disabled");
+
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   }
+
+//   function markGreen(day) {
+//     const btn = dayButtons[day - 1];
+//     if (!btn) return;
+
+//     btn.classList.add("completed");
+//     btn.classList.remove("disabled");
+
+//     const nextBtn = dayButtons[day];
+//     if (nextBtn) nextBtn.classList.remove("disabled");
+//   }
+
+//   loadDiet(1);
+//   loadProgress();
+// });

@@ -1,4 +1,5 @@
-const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";
+
+import API_BASE_URL from "./config.js";
 
 const form = document.getElementById("signupForm");
 
@@ -22,7 +23,7 @@ form.addEventListener("submit", async function (e) {
     gender: formData.get("gender")
   };
 
-  // ---------- BASIC VALIDATION ----------
+  /* ---------- BASIC VALIDATION ---------- */
   let isValid = true;
 
   if (!userData.name) {
@@ -51,7 +52,8 @@ form.addEventListener("submit", async function (e) {
   }
 
   if (!userData.password || userData.password.length < 8) {
-    document.getElementById("pass_error").innerText = "Password must be at least 8 characters";
+    document.getElementById("pass_error").innerText =
+      "Password must be at least 8 characters";
     isValid = false;
   }
 
@@ -67,24 +69,28 @@ form.addEventListener("submit", async function (e) {
 
   if (!isValid) return;
 
-  // ---------- API CALL ----------
+  /* ---------- API CALL ---------- */
   try {
     const res = await fetch(`${API_BASE_URL}/users/`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(userData)
     });
 
     const data = await res.json();
     if (!res.ok) throw data;
 
+    // Save minimal session (NO JWT YET)
     localStorage.setItem("user_id", data.user_id);
     localStorage.setItem("category_id", data.category_id);
 
-     window.location.href = "../html/landing/beginner.html";
+    window.location.href = "../html/landing/beginner.html";
 
   } catch (err) {
     console.error(err);
+
     if (err.detail && err.detail.includes("Email")) {
       document.getElementById("mail_error").innerText = "Email already exists";
     } else {
@@ -92,6 +98,107 @@ form.addEventListener("submit", async function (e) {
     }
   }
 });
+
+
+
+
+
+
+
+// const API_BASE_URL = "https://fullstack-backend-eq2r.onrender.com";
+
+// const form = document.getElementById("signupForm");
+
+// function clearErrors() {
+//   document.querySelectorAll(".error").forEach(el => el.innerText = "");
+// }
+
+// form.addEventListener("submit", async function (e) {
+//   e.preventDefault();
+//   clearErrors();
+
+//   const formData = new FormData(form);
+
+//   const userData = {
+//     name: formData.get("name")?.trim(),
+//     age: Number(formData.get("age")),
+//     height: Number(formData.get("height")),
+//     weight: Number(formData.get("weight")),
+//     email: formData.get("email")?.trim().toLowerCase(),
+//     password: formData.get("password"),
+//     gender: formData.get("gender")
+//   };
+
+//   // ---------- BASIC VALIDATION ----------
+//   let isValid = true;
+
+//   if (!userData.name) {
+//     document.getElementById("name_error").innerText = "Name is required";
+//     isValid = false;
+//   }
+
+//   if (!userData.age || userData.age <= 0) {
+//     document.getElementById("age_error").innerText = "Enter valid age";
+//     isValid = false;
+//   }
+
+//   if (!userData.height || userData.height <= 0) {
+//     document.getElementById("height_error").innerText = "Enter valid height";
+//     isValid = false;
+//   }
+
+//   if (!userData.weight || userData.weight <= 0 || userData.weight > 300) {
+//     document.getElementById("weight_error").innerText = "Enter valid weight";
+//     isValid = false;
+//   }
+
+//   if (!userData.email) {
+//     document.getElementById("mail_error").innerText = "Email is required";
+//     isValid = false;
+//   }
+
+//   if (!userData.password || userData.password.length < 8) {
+//     document.getElementById("pass_error").innerText = "Password must be at least 8 characters";
+//     isValid = false;
+//   }
+
+//   if (!formData.get("confirm") || formData.get("confirm") !== userData.password) {
+//     document.getElementById("confirm_error").innerText = "Passwords do not match";
+//     isValid = false;
+//   }
+
+//   if (!userData.gender) {
+//     alert("Please select gender");
+//     isValid = false;
+//   }
+
+//   if (!isValid) return;
+
+//   // ---------- API CALL ----------
+//   try {
+//     const res = await fetch(`${API_BASE_URL}/users/`, {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(userData)
+//     });
+
+//     const data = await res.json();
+//     if (!res.ok) throw data;
+
+//     localStorage.setItem("user_id", data.user_id);
+//     localStorage.setItem("category_id", data.category_id);
+
+//      window.location.href = "../html/landing/beginner.html";
+
+//   } catch (err) {
+//     console.error(err);
+//     if (err.detail && err.detail.includes("Email")) {
+//       document.getElementById("mail_error").innerText = "Email already exists";
+//     } else {
+//       alert("Signup failed. Please try again.");
+//     }
+//   }
+// });
 
 
 
