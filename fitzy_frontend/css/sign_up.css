@@ -158,6 +158,9 @@ footer p{
     width: 35px;
     height: 35px;
   }
+  label{
+    font-size: 18px;
+  }
   .home {
     padding: 15px;
     font-size: 28px;

@@ -269,10 +269,18 @@ footer p{
     width: 90%;
 }
 
-.log_out, .log_out1 {
+.log_out1 {
     width: 90%;
     padding: 8px;
     font-size: 16px;
+}
+ .log_out {
+    width: 30%;
+    padding: 8px;
+    font-size: 16px;
+}
+.log{
+    width: 90%;
 }
 
 .logo, .logo1 {

@@ -1,25 +1,25 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Georgia, serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Georgia, serif;
 }
 
-body{
-    background: linear-gradient(to top, #fad0c43d 0%, #ffd1ffd5 100%);
+body {
+  background: linear-gradient(to top, #fad0c43d 0%, #ffd1ffd5 100%);
 }
 
 .header {
-height: 80px;
-padding: 20px 40px;
-display: flex;
-align-items: center;
-gap: 10px;
+  height: 80px;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .Completed-btn {
   display: block;
-  margin: 20px 0 0 auto; /* pushes button to right */
+  margin: 20px 0 0 auto;
   padding: 10px 18px;
   background-color: rgb(197, 161, 231);
   border: 1px solid rgb(75, 8, 75);
@@ -27,71 +27,70 @@ gap: 10px;
   cursor: pointer;
 }
 
-
-span{
-    font-size: 25px;
-    color: rgb(129, 59, 129);
+span {
+  font-size: 25px;
+  color: rgb(129, 59, 129);
 }
 
-.arranging_diet_flex{
-    display: flex;
-    gap: 50px;
-    padding-bottom: 113px;
+.arranging_diet_flex {
+  display: flex;
+  gap: 50px;
+  padding-bottom: 113px;
 }
 
-.diet_box1.active{
-background-color: rgb(197, 161, 231);
-font-weight: bold;
-border: 1px solid  rgb(75, 8, 75);
+.diet_box1.active {
+  background-color: rgb(197, 161, 231);
+  font-weight: bold;
+  border: 1px solid rgb(75, 8, 75);
 }
 
-.nav{
-    border-radius: 10px;
-    padding: 55px 10px 30px;
-    margin-top: 60px;
-    margin-left: 30px;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    gap: 80px;
-    width: 100px;
+.nav {
+  border-radius: 10px;
+  padding: 55px 10px 30px;
+  margin-top: 60px;
+  margin-left: 30px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  width: 100px;
 }
 
-.move{
-    margin-left: 15px;
+.move {
+  margin-left: 15px;
 }
 
-.diet{
-    margin-top: 100px;
-    width: 45%;
+.diet {
+  margin-top: 100px;
+  width: 45%;
 }
 
-.diet_day{
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 40px;
-    margin-left: 40px;
+.diet_day {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
+  margin-left: 40px;
 }
 
-.diet_box1{
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-    cursor: pointer;
+.diet_box1 {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
 }
 
-.diet_box1:hover{
-    transform: scale(1.05);
+.diet_box1:hover {
+  transform: scale(1.05);
 }
 
-.first{
-    background-color: rgba(240, 128, 128, 0.25);
+.first {
+  background-color: rgba(240, 128, 128, 0.25);
 }
 
-.diet_heading{
-    margin-top: 50px;
-    margin-bottom: 20px;
+.diet_heading {
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 .diet_box1.completed {
@@ -106,59 +105,55 @@ border: 1px solid  rgb(75, 8, 75);
   background-color: #ddd;
 }
 
-
-
-
-.food_type{
-    display: flex;
-    gap: 20px;
-    border: 1px solid black;
-    padding: 10px 25px;
-    border-radius: 10px;
-    width: fit-content;
+.food_type {
+  display: flex;
+  gap: 20px;
+  border: 1px solid black;
+  padding: 10px 25px;
+  border-radius: 10px;
+  width: fit-content;
 }
 
-.food_explaination{
-    margin-top: 30px;
-    margin-bottom: 30px;
+.food_explaination {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
-#backround_color{
-background-color:  rgb(197, 161, 231);
-font-weight: bold;
-border: 1px solid rgb(75, 8, 75)
+#backround_color {
+  background-color: rgb(197, 161, 231);
+  font-weight: bold;
+  border: 1px solid rgb(75, 8, 75);
 }
 
 .veg_food,
-.Nonveg_food{
-    border: 1px solid black;
-    padding: 10px 25px;
-    border-radius: 10px;
-    cursor: pointer;
+.Nonveg_food {
+  border: 1px solid black;
+  padding: 10px 25px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-
-.diet_content{
+.diet_content {
   width: 30%;
 }
 
-.food_plan{
-    margin-top: 30px;
+.food_plan {
+  margin-top: 30px;
 }
 
-.food_plan h3{
-    font-size: 22px;
+.food_plan h3 {
+  font-size: 22px;
 }
 
-.food_plan ul{
-    margin-top: 15px;
-    margin-left: 25px;
-    font-size: 20px;
+.food_plan ul {
+  margin-top: 15px;
+  margin-left: 25px;
+  font-size: 20px;
 }
 
-a{
-    text-decoration: none;
-    color: black;
+a {
+  text-decoration: none;
+  color: black;
 }
 
 footer {
@@ -178,22 +173,17 @@ footer {
 body {
   padding-bottom: 60px;
 }
-  
-
-
-
 
 @media (max-width: 768px) {
-
-.header {
+  .header {
     height: 80px;
-    padding: 20px ;
+    padding: 20px;
     margin-bottom: 10px;
     flex-wrap: wrap;
     display: flex;
     gap: 10px;
-}
-.food_type {
+  }
+  .food_type {
     display: flex;
     gap: 20px;
     border: 1px solid black;
@@ -201,17 +191,17 @@ body {
     border-radius: 10px;
     width: fit-content;
     margin-left: 30px;
-}
+  }
   .arranging_diet_flex {
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
-.diet_content{
-  width: 100%;
-}
+  .diet_content {
+    width: 100%;
+  }
 
-.nav {
+  .nav {
     border: 1px solid black;
     border-radius: 10px;
     width: 90%;
@@ -223,7 +213,7 @@ body {
     align-items: center;
     gap: 15px;
     margin-top: 60px;
-  } 
+  }
 
   .move {
     margin-left: 0;
@@ -234,20 +224,18 @@ body {
     margin: 0;
   }
 
-.diet_day {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(60px, 3fr));
-        gap: 10px;
-        padding: 0 10px;
-        width: 70%;
-    } 
+  .diet_day {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 3fr));
+    gap: 10px;
+    padding: 0 10px;
+    width: 70%;
+  }
 
   .diet_box1 {
     font-size: 12px;
     padding: 8px;
   }
-
- 
 
   footer {
     font-size: 14px;
@@ -255,4 +243,3 @@ body {
     padding: 10px;
   }
 }
-

@@ -7,6 +7,7 @@ body {
   background-image: url("../fitzy_frontend/Assets/backround_image.jpg"); 
   background-size: cover; 
   z-index: -1;
+  
 }
 .home {
   padding-top: 30px;
@@ -68,3 +69,6 @@ footer p {
   display: flex;
   justify-content: center;
 }
+
+
+
