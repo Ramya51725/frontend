@@ -1,5 +1,12 @@
 import API_BASE_URL from "../config.js";
 
+const token = localStorage.getItem("token");
+if (!token) {
+  alert("Session expired. Please login again.");
+  window.location.href = "../../html/sign_in.html";
+}
+
+
 const categoryId = localStorage.getItem("category_id");
 if (!categoryId) {
   alert("Category not found. Please login again.");
@@ -8,17 +15,33 @@ if (!categoryId) {
 
 const level = "level6";
 
+
 const container = document.getElementById("exerciseContainer");
 const detailContainer = document.getElementById("exerciseDetail");
 
 const API_URL = `${API_BASE_URL}/exercise/by-category-level?category_id=${categoryId}&level=${level}`;
 
-fetch(API_URL)
-  .then(res => res.json())
+
+fetch(API_URL, {
+  headers: {
+    "Authorization": `Bearer ${token}`
+  }
+})
+  .then(res => {
+    if (res.status === 401) {
+      localStorage.clear();
+      alert("Session expired. Please login again.");
+      window.location.href = "../../html/sign_in.html";
+      return;
+    }
+    return res.json();
+  })
   .then(data => {
+    if (!data) return;
+
     container.innerHTML = "";
 
-    if (!data || data.length === 0) {
+    if (data.length === 0) {
       container.innerHTML = "<p>No exercises found</p>";
       return;
     }
@@ -88,8 +111,3 @@ function showExerciseDetail(ex) {
     </div>
   `;
 }
-
-
-
-
-

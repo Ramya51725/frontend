@@ -21,10 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (email === "admin@gmail.com") {
-      window.location.href = "../html/admin.html";
-      return;
-    }
 
     try {
       const res = await fetch(`${API_BASE_URL}/users/login`, {
@@ -46,8 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("name", data.name || "");
       localStorage.setItem("level", "level1");
 
-      window.location.href = "../html/landing/beginner.html";
-
+      if (email === "admin@gmail.com") {
+        window.location.href = "../html/admin.html";
+      } else {
+        window.location.href = "../html/landing/beginner.html";
+      }
+      
     } catch (err) {
       console.error("Login error:", err);
       messageEl.innerText = err.message || "Login failed. Try again.";
